@@ -17,16 +17,14 @@ export default function Menu({ value, handleChange }) {
             }}
         >
             <Tabs value={value} orientation="vertical">
-                {tabs.map((item, index) => {
-                    return (
-                        <Tab
-                            key={index}
-                            label={item}
-                            id={`vertical-tab-${index}`}
-                            onClick={handleChange(index)}
-                        />
-                    )
-                })}
+                {tabs.map((item, index) => (
+                    <Tab
+                        key={index}
+                        label={item}
+                        id={`vertical-tab-${index}`}
+                        onClick={handleChange(index)}
+                    />
+                ))}
             </Tabs>
         </Box>
     )
