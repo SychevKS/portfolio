@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useRef, useState } from "react"
 
 import { Box, Typography } from "@mui/material"
 
-import { Menu } from "./components"
+import { Menu, Main } from "./components"
 
 const preventDefault = event => event.preventDefault()
 
@@ -42,19 +42,13 @@ export default function App() {
 
     const sectionStyle = {
         height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flex: "1 1 auto",
     }
 
     const handleWheel = event => {
         if (event.deltaY < 30 && !inMove) {
-            console.log("вверх")
             setMove(true)
             setActiveSection(prev => (prev - 1 < 0 ? sectionsCount - 1 : prev - 1))
         } else if (event.deltaY > 30 && !inMove) {
-            console.log("вниз")
             setMove(true)
             setActiveSection(prev => (prev + 1 > sectionsCount - 1 ? 0 : prev + 1))
         }
@@ -70,12 +64,12 @@ export default function App() {
                     display: "flex",
                     flexDirection: "column",
                     height: "100%",
-                    flexGrow: "1",
+                    flex: "1 1 auto",
                 }}
                 onWheel={handleWheel}
             >
                 <section ref={sectionsRef.current[0]} style={sectionStyle}>
-                    <Typography>Большой блок 1</Typography>
+                    <Main />
                 </section>
 
                 <section ref={sectionsRef.current[1]} style={sectionStyle}>

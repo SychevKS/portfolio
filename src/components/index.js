@@ -1,4 +1,4 @@
-/* eslint-disable */
+import Main from "./main/Main"
 import Menu from "./menu/Menu"
 
-export { Menu }
+export { Menu, Main }
