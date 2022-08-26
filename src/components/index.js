@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Menu from "./menu/Menu"
 
-export { Menu, Box }
+export { Menu }

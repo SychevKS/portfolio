@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useRef, useState } from "react"
 
 import { Box, Typography } from "@mui/material"
 
-import { Menu } from "@components"
+import { Menu } from "./components"
 
 const preventDefault = event => event.preventDefault()
 
@@ -15,6 +15,10 @@ export default function App() {
     const [activeSection, setActiveSection] = useState(0)
     const sectionsCount = 4
 
+    sectionsRef.current = [...Array(sectionsCount).keys()].map(
+        (_, i) => sectionsRef.current[i] ?? createRef()
+    )
+
     useEffect(() => {
         fieldScroll.current.addEventListener("wheel", preventDefault)
         return () => {
@@ -22,20 +26,14 @@ export default function App() {
         }
     }, [])
 
-    sectionsRef.current = [...Array(sectionsCount).keys()].map(
-        (_, i) => sectionsRef.current[i] ?? createRef()
-    )
-
     useEffect(() => {
-        sectionsRef.current[activeSection].current.scrollIntoView({ behavior: "smooth" })
+        sectionsRef.current[activeSection].current.scrollIntoView({
+            behavior: "smooth",
+        })
 
-        //window.scroll({ top: sectionsRef.current[activeSection].current.offsetTop, behavior: "smooth" })
-
-        if (inMove) {
-            setTimeout(() => {
-                setMove(false)
-            }, 400)
-        }
+        setTimeout(() => {
+            setMove(false)
+        }, 400)
     }, [activeSection])
 
     const handleScroll = index => () => {
@@ -68,7 +66,12 @@ export default function App() {
 
             <Box
                 ref={fieldScroll}
-                sx={{ display: "flex", flexDirection: "column", height: "100%", flexGrow: "1" }}
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    flexGrow: "1",
+                }}
                 onWheel={handleWheel}
             >
                 <section ref={sectionsRef.current[0]} style={sectionStyle}>
