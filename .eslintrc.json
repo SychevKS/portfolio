@@ -10,6 +10,7 @@
         "import/no-unresolved": 0,
         "react/prop-types": 0,
         "react/no-array-index-key": 1,
-        "react/jsx-props-no-spreading": "off"
+        "react/jsx-props-no-spreading": "off",
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
     }
 }

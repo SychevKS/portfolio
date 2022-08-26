@@ -1,20 +1,27 @@
-import * as React from "react"
+import React from "react"
+
 import { Box, Tabs, Tab } from "@mui/material"
 
-export default function Header() {
-    const [value, setValue] = React.useState(0)
+//import { colors } from "@constants"
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue)
-    }
-
+export default function Menu({ value, handleChange }) {
+    const tabs = ["Главная", "О себе", "Мои проекты", "Связаться со мной"]
     return (
-        <Box sx={{ width: "100%" }}>
-            <Tabs value={value} onChange={handleChange} orientation="vertical">
-                <Tab label="Главная" />
-                <Tab label="О себе" />
-                <Tab label="Мои проекты" />
-                <Tab label="Связаться со мной" />
+        <Box
+            sx={{
+                position: "sticky",
+                top: 0,
+                display: "flex",
+                height: "100vh",
+                alignItems: "center",
+                borderRight: 1,
+                borderColor: "divider",
+            }}
+        >
+            <Tabs value={value} orientation="vertical">
+                {tabs.map((item, index) => (
+                    <Tab label={item} id={`vertical-tab-${index}`} onClick={handleChange(index)} />
+                ))}
             </Tabs>
         </Box>
     )
