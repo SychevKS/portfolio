@@ -3,7 +3,8 @@ import React, { createRef, useEffect, useRef, useState } from "react"
 
 import { Box, Typography } from "@mui/material"
 
-import { Menu, Main } from "./components"
+import { Main, About } from "./components"
+import { Skills } from "./screens"
 
 const preventDefault = event => event.preventDefault()
 
@@ -13,9 +14,10 @@ export default function App() {
 
     const [inMove, setMove] = useState(false)
     const [activeSection, setActiveSection] = useState(0)
-    const sectionsCount = 4
 
-    sectionsRef.current = [...Array(sectionsCount).keys()].map(
+    const sections = [<Main />, <About />, <Skills />]
+
+    sectionsRef.current = [...Array(sections.length).keys()].map(
         (_, i) => sectionsRef.current[i] ?? createRef()
     )
 
@@ -40,49 +42,43 @@ export default function App() {
         setActiveSection(index)
     }
 
-    const sectionStyle = {
-        height: "100vh",
-    }
-
     const handleWheel = event => {
         if (event.deltaY < 30 && !inMove) {
             setMove(true)
-            setActiveSection(prev => (prev - 1 < 0 ? sectionsCount - 1 : prev - 1))
+            setActiveSection(prev => (prev - 1 < 0 ? sections.length - 1 : prev - 1))
         } else if (event.deltaY > 30 && !inMove) {
             setMove(true)
-            setActiveSection(prev => (prev + 1 > sectionsCount - 1 ? 0 : prev + 1))
+            setActiveSection(prev => (prev + 1 > sections.length - 1 ? 0 : prev + 1))
         }
     }
 
     return (
         <Box sx={{ display: "flex" }}>
-            <Menu value={activeSection} handleChange={handleScroll} />
-
             <Box
                 ref={fieldScroll}
                 sx={{
                     display: "flex",
                     flexDirection: "column",
                     height: "100%",
+                    width: "100%",
                     flex: "1 1 auto",
                 }}
                 onWheel={handleWheel}
             >
-                <section ref={sectionsRef.current[0]} style={sectionStyle}>
-                    <Main />
-                </section>
-
-                <section ref={sectionsRef.current[1]} style={sectionStyle}>
-                    <Typography>Большой блок 2</Typography>
-                </section>
-
-                <section ref={sectionsRef.current[2]} style={sectionStyle}>
-                    <Typography>Большой блок 3</Typography>
-                </section>
-
-                <section ref={sectionsRef.current[3]} style={sectionStyle}>
-                    <Typography>Большой блок 4</Typography>
-                </section>
+                {sections.map((item, index) => (
+                    <section
+                        ref={sectionsRef.current[index]}
+                        style={{
+                            height: "100vh",
+                            paddingLeft: 150,
+                            paddingRight: 150,
+                            paddingTop: 50,
+                            paddingBottom: 50,
+                        }}
+                    >
+                        {item}
+                    </section>
+                ))}
             </Box>
         </Box>
     )
